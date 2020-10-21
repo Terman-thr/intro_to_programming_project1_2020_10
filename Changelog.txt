@@ -1,0 +1,138 @@
+==============20.10.13.1============================
+1.Add Difficulty bonus.
+==============20.10.10.1============================
+Due to the ban on global variables , I copy all the code of my function and put them in my main funtion.
+Then, I spilt them into several functions if their input variables are not so many.So the changes may seems
+big. But it was just the transition of my codes.
+1.Restructure all the program to make it neat.
+2.Add much more comments on structures and on variables.
+3.Delete nnecessary codes.
+4.Use section to make devide the program into several parts.
+5.Fix some known bugs.
+==============20.10.05.2============================
+1.Add more comments.
+2.Fix some known issues.
+3.Classify variables.
+==============20.10.05.1============================
+1.Add plate_generator to randomly generate plates for cars,and use text function to
+print the plate on the figure.
+2.Add Monitor.m to print all cars tend to run a red lights.
+3.Add the circumstance users lose or win.
+==============20.10.04.1============================
+1.Add test_crash.m function to test whether two rectangle are overlapped by using 
+geometry methods.
+2.Replace the original time input with the boolvalue test_crash output
+ to stop the program.
+3.Add probability generator to assign values to each cars, and compare them with 'p'
+user inputs.
+==============20.10.03.1============================
+1.Add DIS_(direction) and DIS_(direction)_pro (in car_pri.m loops) for the distance 
+cars drive with and without traffic lights. (debug toke me lots of time)
+2.Add codes randomly generate cars numbers on each lane (in Traffic.m).
+3.After refreshment ,add 'clf'.
+==============20.10.02.1============================
+Milestone 2
+Add car_pri.m interface.m 
+1.car_pri.m function to draw cars on a line with loops.(without stoping)
+2.interface.m function to collect the input to make the Road_Game more clean.
+==============20.09.30.2============================
+1.New function to control the traffic lights.(For more info, please read README.txt)
+2.Use functions to make the program easier to read and simplify the program.
+3.Change the background (including the color and length of the lane lines).
+4.Fix some known issues .
+5.[Experience Optimization] Add more comments.
+==============20.09.30.1============================
+Milestone 1
+Draw the crossroad and draw four traffic light,which can change their color based on
+the numbers users enter.
+
+
+Function changes and introduction:
+
+History functions:
+==========================20.10.05========================
+car_pri.m (merge into the Road_Game)
+I use four loops for each direction to control a row of cars. The codes in each loop are quite similiar,
+DIS_(direction) is the distance a car should drive without stoping at the crossing, and DIA_(direction)_pro 
+is the distance of DIS_(direction) minus (the time cars waiting) *  (car speed), and arraies are used to 
+record the data. I use another loop in the original loop and a branch to judge whether the cars is just
+ before the crossing and whether the lights are green. (According to the question, it seems that there
+ is no difference between orange and red lights). After that I create several arrays to store the random
+data of the probability of car will run a red light , if its probability is larger than the number p users set
+then it will run a red light:
+
+if    the car is at the crossing  &&  the car is not going to run a red light  &&  the light is red
+	DIS_(direction)_pro --
+	draw the car and all cars behind it with the minished real distance
+end
+
+
+
+==========================20.10.01========================
+1.I change the function Traffic_Light to Traffic, I use different method. I originally pause the image
+after I change the image every time, which may need matlab to handle several loops at the same time.
+However, matlab can't do tasks once. Now I do all the calculation in one frame(0.1s) and minus the time
+matlab uses to calculate.
+========================================================
+Traffic.m (merge into the Road_Game)
+I do all the calculation in one frame(0.1s) and minus the time matlab uses to calculate so that it may
+be easier for the next milestone.
+g_1(green)-->o_1(orange)-->r_1(red) .For each period, I can use one loop to change the color and
+involve circumstance  happens in one loop.I use ,for instance,g_1=g_1 - 1 to decide the time each states remains
+To continue ,I only have to reset the three number,and the program can go on.
+
+---------------------------------------------------------------------------------------------
+test_crash.m (reserved)
+The function is much simplier than I thought. If cars are all the same, I just need to know the
+cooridinate of the cars and use the geometry calculation, and I can know whether two rectanges
+are overlap (crash).
+---------------------------------------------------------------------------------------------
+interface.m (merge into the Road_Game)
+The function is the main interfance with users, and users use this function to input values
+---------------------------------------------------------------------------------------------
+plate_generator.m (reserved)
+I use ASCII to generate numbers(48-57) and capital letters(65-90). For the first capital letter, I randomly
+ generate a number lays between 65-90. For the other four, I use randi generate an array with four 
+numbers from 1 to 36 (57+90-48-65=36).Then ,we can use if branch to clarrify 1 to 10 and 11 to 36
+ add 47 and 54 respectively. After that , "char" function is used to turn the ASCII number into chars.
+So, we can get the plate.
+PS. between the first letter and the other four , I added an space(ASCII:32) to sparate them.
+---------------------------------------------------------------------------------------------
+Monitor.m (merge into the Road_Game)
+I use a loop and branch to judge a cars probability is larger than p, and print all the cars (tend to) run a
+red light. 
+---------------------------------------------------------------------------------------------
+
+
+
+==========================20.09.30========================
+To write the script that satisfies milestone 1, I write several functions to simplify the main script.(Road_Game.m). 
+And then I will explain these functions in detail.
+========================================================
+Road.m (reserved)
+rectangle function:      to draw the image of the fundamantal outline of the street.
+plot function:              to draw distinguish different lanes.
+Leng variable :            the distance from the cross to the end of the road.
+LA_WID variable :	   the width of one lane.
+---------------------------------------------------------------------------------------------
+interface.m (merge into the Road_Game)
+The interaction interface with the user. User can input the interval of the traffic lights 
+(g, o, r for green, orange, red).
+Because there are no car crush in milestone 1, so the user have to manually set a time 
+to terminate the program.
+---------------------------------------------------------------------------------------------
+Traffic_Light.m (deleted)
+I use clock and etime function to calulate the time used, to terminate the program on time.
+And I use while function to create a loop to draw the four traffic lights to, so that I can make 
+a animation.
+========================================================
+1.Because the change of traffic lights is R->G->O  ->R->G->O  ->R->G->O
+So we only have to discuss the one period and largely simplify the program.
+
+2.Because another two traffic lights change based on the two lights users control. Thus, 
+the orange lights of another two should be longer than the r users enter, or cars on one lane
+will have no chance to enter the cross.
+
+
+
+
